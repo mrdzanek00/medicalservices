@@ -2,6 +2,7 @@ package com.mas.medicalservices.controller;
 
 
 import com.mas.medicalservices.dto.VisitDto;
+import com.mas.medicalservices.dto.VisitDto2;
 import com.mas.medicalservices.model.Visit;
 import com.mas.medicalservices.services.DoctorService;
 import com.mas.medicalservices.services.PatientService;
@@ -94,5 +95,10 @@ public class VisitController {
         Visit visit = new Visit(visitDto.getId_visit(),doctorService.getDoctor(visitDto.getId_doctor()),patientService.getPatient(visitDto.getId_patient()),visitDto.getBeginDate(),visitDto.getDuration());
         return visit;
     }
+
+ /*   @GetMapping("/getv2")
+    public List<VisitDto2> listV2() {
+        return visitService.listAllVisit2();
+    }*/
 
 }

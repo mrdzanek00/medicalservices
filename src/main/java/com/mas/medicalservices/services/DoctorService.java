@@ -34,4 +34,7 @@ public class DoctorService {
         doctorRepository.deleteById(id);
     }
 
+    public List<Doctor> listDoctorWithSpec(String spec_name){
+        return doctorRepository.findDoctorsWithSpec(spec_name);
+    }
 }

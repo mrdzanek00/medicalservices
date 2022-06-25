@@ -37,7 +37,7 @@ public class Doctor extends Employee {
     @JoinColumn(name = "id_internship")
     private Internship internship;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_doctor")
     private List<Visit> visits = new ArrayList<>();
 

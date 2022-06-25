@@ -1,6 +1,7 @@
 package com.mas.medicalservices.services;
 
 
+import com.mas.medicalservices.dto.VisitDto2;
 import com.mas.medicalservices.model.Visit;
 import com.mas.medicalservices.repository.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,6 @@ public class VisitService {
 
     @Autowired
     private VisitRepository visitRepository;
-
-
 
     //NOTE TRWALOSC
     public List<Visit> listAllVisit() {
@@ -36,4 +35,8 @@ public class VisitService {
         visitRepository.deleteById(id);
     }
 
+  /*  public List<VisitDto2> listAllVisit2() {
+        return visitRepository.getVisit2();
+    }
+*/
 }

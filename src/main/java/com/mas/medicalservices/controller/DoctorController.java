@@ -129,4 +129,10 @@ public class DoctorController {
         return specializationService.getSpecialization(specName) != null;
     }
 
+    @GetMapping("/spec/{spec_name}")
+    public List<Doctor> listWithSpec(@PathVariable String spec_name) {
+        return doctorService.listDoctorWithSpec(spec_name);
+    }
+
+
 }
