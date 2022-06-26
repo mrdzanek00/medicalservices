@@ -13,10 +13,11 @@ import { useNavigate } from "react-router-dom";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { useEffect } from "react";
 const PatientSearch = ({ patientId, spec }) => {
   const [availableDoctors, setAvailableDoctors] = useState([
-    "Jan Kowalski",
-    "Adam Nowak",
+    { doctorId: 1, doctorName: "Jan Kowalski" },
+    { doctorId: 2, doctorName: "Adam Nowak" },
   ]);
   const [visitLengths, setVisitLengths] = useState([
     "30 minut",
@@ -24,13 +25,27 @@ const PatientSearch = ({ patientId, spec }) => {
     "90 minut",
   ]);
   const [doctor, setDoctor] = useState("Jan Kowalski");
+  const [doctorId, setDoctorId] = useState(0);
   const [visitLength, setVisitLength] = useState("30 minut");
   const [visitDate, setVisitDate] = useState(new Date());
   const navigate = useNavigate();
   const addVisit = () => {
-    //strzal doAPI
+    //strzal do API
+    console.log(
+      "ID DOKTORA:",
+      doctorId,
+      "ID PACJENTA:",
+      patientId,
+      "DURATION:",
+      visitLength,
+      "DATA:",
+      visitDate
+    );
     navigate("/");
   };
+  useEffect(() => {
+    //tutaj ustaw availableDoctors z API jako dostepnych doktorow
+  }, []);
   return (
     <div
       style={{
@@ -49,13 +64,13 @@ const PatientSearch = ({ patientId, spec }) => {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={doctor}
+          value={doctorId}
           label="Lekarz"
-          onChange={(e) => setDoctor(e.target.value)}
+          onChange={(e) => setDoctorId(e.target.value)}
         >
-          {availableDoctors.map((currDoctor, idx) => (
-            <MenuItem key={`${currDoctor}_${idx}`} value={currDoctor}>
-              {currDoctor}
+          {availableDoctors.map((currDoctor) => (
+            <MenuItem value={currDoctor.doctorId} key={currDoctor.doctorId}>
+              {currDoctor.doctorName}
             </MenuItem>
           ))}
         </Select>
