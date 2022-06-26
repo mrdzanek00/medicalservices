@@ -1,91 +1,58 @@
-import React from 'react';
-import axios from 'axios';
-import PatientService from '../services/PatientService';
-
-export default class PatientList extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            patient : null ,
-            firstName: '',
-            lastName: '',
-            isFound: false
-
-        }
-        this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
-        this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
-    }
-
-
-
-  changeFirstNameHandler= (event) => {
-    this.setState({firstName: event.target.value});
-}
-
-changeLastNameHandler= (event) => {
-    this.setState({lastName: event.target.value});
-}
-
-  componentDidMount() {
-    axios.get(`http://localhost:8080/patients/`)
-      .then(res => {
-        const patients = res.data;
-        this.setState({ patients });
-      })
-  }
-
-
-  searchPatient = (e) => {
-    e.preventDefault();
-    
-    PatientService.getPatientByName(this.state.firstName,this.state.lastName).then( (res) =>{
-        let patient = res.data;
-        this.state.patient = patient;
-        this.isFound = true;
-        console.log(patient)
-        
-    });
-
-}
-
-  render() {
-    return (
-        <><h2 className='h2class'> Wyszukaj pacjenta</h2><div className="App"></div><div>
-            <br></br>
-            <div className="container">
-                <div className="row">
-                    <div className="card col-md-6 offset-md-3 offset-md-3">
-                        <div className="card-body">
-                            <form>
-                                <div className="form-group">
-                                    <label> First Name: </label>
-                                    <input placeholder="First Name" name="firstName" className="form-control"
-                                        value={this.state.firstName} onChange={this.changeFirstNameHandler} />
-                                </div>
-                                <div className="form-group">
-                                    <label> Last Name: </label>
-                                    <input placeholder="Last Name" name="lastName" className="form-control"
-                                        value={this.state.lastName} onChange={this.changeLastNameHandler} />
-                                </div>
-                                <button className="btn btn-success" onClick={this.searchPatient}>Search</button>
-                            </form>
-                            {this.isFound && (
-        <div>
-          <h2>Some content here</h2>
-        </div>
-      )}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div></>
-
-
-    )
-  }
-  
-}
-
-
+import { useState } from "react";
+import Typography from "@mui/material/Typography";
+import { Button, TextField, Alert } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+const PatientSearch = ({ setId }) => {
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
+  const navigate = useNavigate();
+  const searchPatient = () => {
+    setId(3); //DO ZMIANY
+    if (true) navigate(`/chooseSpec`);
+    //patient not found
+    else setAlertVisible(true);
+  };
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "500px",
+        justifyContent: "center",
+        alignItems: "center",
+        marginLeft: "50px",
+        marginTop: "50px",
+      }}
+    >
+      <Typography variant="h3">Wyszukiwanie pacjenta</Typography>
+      <TextField
+        variant="standard"
+        label="Imie"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <TextField
+        variant="standard"
+        label="Nazwisko"
+        value={surname}
+        onChange={(e) => setSurname(e.target.value)}
+      />
+      <Button
+        variant="contained"
+        style={{ marginTop: "30px" }}
+        onClick={() => searchPatient()}
+      >
+        WYSZUKAJ
+      </Button>
+      <Alert
+        variant="filled"
+        severity="error"
+        style={{ marginTop: "20px", display: alertVisible ? "block" : "none" }}
+      >
+        Nie znaleziono pacjenta!
+      </Alert>
+    </div>
+  );
+};
+export default PatientSearch;
