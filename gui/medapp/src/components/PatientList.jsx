@@ -1,80 +1,53 @@
-import React from 'react';
-import PatientService from '../services/PatientService';
-
-export default class PatientList extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-            patients: []
-    }
-    this.addPatient = this.addPatient.bind(this);
-    this.editPatient = this.editPatient.bind(this);
-    this.deletePatient = this.deletePatient.bind(this);
-}
-
-deletePatient(id){
-    PatientService.deletePatient(id).then( res => {
-        this.setState({Patients: this.state.patients.filter(Patient => Patient.id !== id)});
-    });
-}
-viewPatient(id){
-    this.props.history.push(`/view-Patient/${id}`);
-}
-editPatient(id){
-    this.props.history.push(`/add-Patient/${id}`);
-}
-
-componentDidMount(){
-    PatientService.getPatients().then((res) => {
-        this.setState({ patients: res.data});
-    });
-}
-
-addPatient(){
-    this.props.history.push('/add-Patient/_add');
-}
-
-render() {
-    return (
-        <div>
-             <h2 className="text-center">Patients List</h2>
-             <div className = "row">
-                <button className="btn btn-primary" onClick={this.addPatient}> Add Patient</button>
-             </div>
-             <br></br>
-             <div className = "row">
-                    <table className = "table table-striped table-bordered">
-
-                        <thead>
-                            <tr>
-                                <th> First Name</th>
-                                <th> Last Name</th>
-                                <th> Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                this.state.patients.map(
-                                    Patient => 
-                                    <tr key = {Patient.id}>
-                                         <td> { Patient.firstName} </td>   
-                                         <td> {Patient.lastName}</td>
-                                         <td>
-                                             <button onClick={ () => this.editPatient(Patient.id)} className="btn btn-info">Update </button>
-                                             <button style={{marginLeft: "10px"}} onClick={ () => this.deletePatient(Patient.id)} className="btn btn-danger">Delete </button>
-                                             <button style={{marginLeft: "10px"}} onClick={ () => this.viewPatient(Patient.id)} className="btn btn-info">View </button>
-                                         </td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
-
-             </div>
-
-        </div>
-    )
-}
-}
-
+import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import PatientService from "../services/PatientService";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import moment from "moment";
+import Paper from "@mui/material/Paper";
+import data from "./patients.json";
+const PatientList = () => {
+  const [patients, setPatients] = useState([]);
+  useEffect(() => {
+    setPatients(data);
+  }, []);
+  return (
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell align="right">Doctor id</TableCell>
+            <TableCell align="right">Patient id</TableCell>
+            <TableCell align="right">Visit date</TableCell>
+            <TableCell align="right">Visit hour</TableCell>
+            <TableCell align="right">Visit duration</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {patients.map((row) => (
+            <TableRow
+              key={row.id_visit}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell align="right">{row.id_doctor}</TableCell>
+              <TableCell align="right">{row.id_patient}</TableCell>
+              <TableCell align="right">
+                {moment(row.beginDate).format("DD-MM-YYYY")}
+              </TableCell>
+              <TableCell align="right">
+                {moment(row.beginDate).format("HH:mm")}
+              </TableCell>
+              <TableCell align="right">{row.duration} minut</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};
+export default PatientList;
