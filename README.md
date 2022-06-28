@@ -1,1 +1,1 @@
-SPRING API + REACT example projec
+SPRING API + REACT example project
