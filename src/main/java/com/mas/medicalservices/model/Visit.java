@@ -51,6 +51,13 @@ public class Visit {
         this.duration = duration;
     }
 
+    public Visit(Doctor doctor, Patient patient, @NotNull Date beginDate, @NotNull Integer duration) {
+        this.doctor = doctor;
+        this.patient = patient;
+        this.beginDate = beginDate;
+        this.duration = duration;
+    }
+
     public void setIdVisit(int idVisit) {
         this.id_visit = idVisit;
     }

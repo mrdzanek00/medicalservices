@@ -12,7 +12,7 @@ class HeaderComponent extends Component {
     render() {
         return (
             <div className="topnav">
-            <a className="active" href="/">Home page</a>
+            <a className="active" href="/">Wizyty</a>
             <a href="/patientSearch">Dodaj wizytę</a>
 
           </div>

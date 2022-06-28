@@ -35,8 +35,8 @@ public class VisitService {
         visitRepository.deleteById(id);
     }
 
-  /*  public List<VisitDto2> listAllVisit2() {
+    public List<VisitDto2> listAllVisit2() {
         return visitRepository.getVisit2();
     }
-*/
+
 }

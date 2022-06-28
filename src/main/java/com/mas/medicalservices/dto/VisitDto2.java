@@ -3,78 +3,56 @@ package com.mas.medicalservices.dto;
 import java.util.Date;
 
 public class VisitDto2 {
+/*
     private Integer id_visit;
 
     private Integer id_doctor;
 
     private Integer id_patient;
+*/
 
-    private String doctorFirstName;
+    private String dname;
 
-    private String doctorLastName;
+    private String dlast;
 
-    private String patientFirstName;
+    private String pname;
 
-    private String patientLastName;
+    private String plast;
 
     private Date begin_date;
 
     private Integer duration;
 
-    public Integer getId_visit() {
-        return id_visit;
+    public String getDname() {
+        return dname;
     }
 
-    public void setId_visit(Integer id_visit) {
-        this.id_visit = id_visit;
+    public void setDname(String dname) {
+        this.dname = dname;
     }
 
-    public Integer getId_doctor() {
-        return id_doctor;
+    public String getDlast() {
+        return dlast;
     }
 
-    public void setId_doctor(Integer id_doctor) {
-        this.id_doctor = id_doctor;
+    public void setDlast(String dlast) {
+        this.dlast = dlast;
     }
 
-    public Integer getId_patient() {
-        return id_patient;
+    public String getPname() {
+        return pname;
     }
 
-    public void setId_patient(Integer id_patient) {
-        this.id_patient = id_patient;
+    public void setPname(String pname) {
+        this.pname = pname;
     }
 
-    public String getDoctorFirstName() {
-        return doctorFirstName;
+    public String getPlast() {
+        return plast;
     }
 
-    public void setDoctorFirstName(String doctorFirstName) {
-        this.doctorFirstName = doctorFirstName;
-    }
-
-    public String getDoctorLastName() {
-        return doctorLastName;
-    }
-
-    public void setDoctorLastName(String doctorLastName) {
-        this.doctorLastName = doctorLastName;
-    }
-
-    public String getPatientFirstName() {
-        return patientFirstName;
-    }
-
-    public void setPatientFirstName(String patientFirstName) {
-        this.patientFirstName = patientFirstName;
-    }
-
-    public String getPatientLastName() {
-        return patientLastName;
-    }
-
-    public void setPatientLastName(String patientLastName) {
-        this.patientLastName = patientLastName;
+    public void setPlast(String plast) {
+        this.plast = plast;
     }
 
     public Date getBegin_date() {

@@ -1,8 +1,6 @@
 package com.mas.medicalservices.repository;
 
 import com.mas.medicalservices.model.Doctor;
-import com.mas.medicalservices.model.Patient;
-import com.mas.medicalservices.model.Specialization;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

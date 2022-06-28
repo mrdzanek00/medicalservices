@@ -5,7 +5,7 @@ const PATIENT_BASE_URL = "http://localhost:8080/patients";
 class PatientService {
 
     getPatients(){
-        return axios.get(PATIENT_BASE_URL);
+        return axios.get(PATIENT_BASE_URL );
     }
 
     createPatient(patient){
@@ -25,7 +25,7 @@ class PatientService {
     }
 
     getPatientByName(firstName,lastName){
-        return axios.get(PATIENT_BASE_URL + '/' + firstName + '/' + lastName);
+        return axios.get(PATIENT_BASE_URL +'/' + firstName + '/' + lastName);
     }
 }
 

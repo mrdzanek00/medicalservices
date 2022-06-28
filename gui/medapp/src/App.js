@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 //import PatientList from './components/PatientList.js';
 import HeaderComponent from "./components/HeaderComponent";
 import FooterComponent from "./components/FooterComponent";
-import PatientList from "./components/PatientList";
+import VisitList from "./components/VisitList";
 import PatientSearch from "./components/PatientSearch";
 import Specialization from "./components/Specialization";
 import Visit from "./components/Visit";
@@ -17,7 +17,7 @@ function App() {
         <HeaderComponent />
         <div>
           <Routes>
-            <Route path="/" exact element={<PatientList />} />
+            <Route path="/" exact element={<VisitList />} />
             <Route
               path="/patientSearch"
               exact

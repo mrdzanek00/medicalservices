@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @PrimaryKeyJoinColumn(name = "id_doctor")
 public class Doctor extends Employee {
 
-
     private static final Map<String, Doctor> doctors = new HashMap<>();
 
     @NotNull
@@ -251,9 +250,9 @@ public class Doctor extends Employee {
 
             comingVisits.sort((visit1, visit2) -> {
                 if (visit1.getBeginDate().before(visit2.getBeginDate()))
-                    return 1;
+                    return -1;
                 else
-                    return 0;
+                    return 1;
             });
 
             return comingVisits.get(0);

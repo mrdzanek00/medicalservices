@@ -3,6 +3,7 @@ package com.mas.medicalservices.controller;
 
 import com.mas.medicalservices.dto.VisitDto;
 import com.mas.medicalservices.dto.VisitDto2;
+import com.mas.medicalservices.dto.VisitDto3;
 import com.mas.medicalservices.model.Visit;
 import com.mas.medicalservices.services.DoctorService;
 import com.mas.medicalservices.services.PatientService;
@@ -10,10 +11,13 @@ import com.mas.medicalservices.services.VisitService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -52,7 +56,42 @@ public class VisitController {
         }
     }
 
-    @PostMapping("/")
+//    @PostMapping("/")
+ //   @ResponseStatus(HttpStatus.CREATED)
+    //@ResponseBody
+/*    @RequestMapping(value = "", method = RequestMethod.POST,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public @ResponseBody VisitDto3 add( @RequestParam MultiValueMap<VisitDto3,String> paramMap) throws ParseException {
+    System.out.println(paramMap.toString());
+        Visit visit = convertToEntity3(null);
+
+        visitService.saveVisit(visit);
+        return null;
+    }*/
+
+ /*   @PostMapping(path = "", consumes = "application/x-www-form-urlencoded")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public VisitDto add(VisitDto3 visitDto) throws ParseException {
+
+        System.out.println(visitDto);
+     //   Visit visit = convertToEntity(visitDto);
+
+     //   visitService.saveVisit(visit);
+    //    return convertToDto(visit);
+        return null ;
+    }*/
+
+    /*@GetMapping(path = "/{id_doctor}/{id_patient}/{duration}/{date}")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseBody
+    public VisitDto add(@PathVariable Integer id_doctor , @PathVariable  Integer id_patient ,  @PathVariable Integer duration, @PathVariable  Date date) throws ParseException {
+
+        Visit visit = new Visit(doctorService.getDoctor(id_doctor),patientService.getPatient(id_patient),date,duration);
+        visitService.saveVisit(visit);
+        return convertToDto(visit);
+    }*/
+
+  @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public VisitDto add(@RequestBody VisitDto visitDto) throws ParseException {
@@ -96,9 +135,15 @@ public class VisitController {
         return visit;
     }
 
- /*   @GetMapping("/getv2")
+    private Visit convertToEntity3(VisitDto3 visitDto)  {
+        System.out.println(visitDto.getId_doctor());
+        Visit visit = new Visit(doctorService.getDoctor(visitDto.getId_doctor()),patientService.getPatient(visitDto.getId_patient()),visitDto.getBeginDate(),visitDto.getDuration());
+        return visit;
+    }
+
+    @GetMapping("/getv2")
     public List<VisitDto2> listV2() {
         return visitService.listAllVisit2();
-    }*/
+    }
 
 }

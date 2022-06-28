@@ -1,19 +1,9 @@
 package com.mas.medicalservices.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mas.medicalservices.model.Doctor;
-import com.mas.medicalservices.model.Patient;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
-import javax.persistence.*;
 import java.util.Date;
 
+public class VisitDto3 {
 
-public class VisitDto {
-
-
-    private Integer id_visit;
 
     private Integer id_doctor;
 
@@ -22,15 +12,6 @@ public class VisitDto {
     private Date beginDate;
 
     private Integer duration;
-
-
-    public Integer getId_visit() {
-        return id_visit;
-    }
-
-    public void setId_visit(Integer id_visit) {
-        this.id_visit = id_visit;
-    }
 
     public Integer getId_doctor() {
         return id_doctor;
@@ -63,4 +44,5 @@ public class VisitDto {
     public void setDuration(Integer duration) {
         this.duration = duration;
     }
+
 }

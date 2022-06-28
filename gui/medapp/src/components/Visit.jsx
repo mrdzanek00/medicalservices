@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import moment from "moment";
+import DoctorService from "../services/DoctorService"
+import VisitService from "../services/VisitService";
 import {
   Button,
   Select,
@@ -15,14 +17,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { useEffect } from "react";
 const PatientSearch = ({ patientId, spec }) => {
-  const [availableDoctors, setAvailableDoctors] = useState([
-    { doctorId: 1, doctorName: "Jan Kowalski" },
-    { doctorId: 2, doctorName: "Adam Nowak" },
-  ]);
+  const [availableDoctors, setAvailableDoctors] = useState([]);
   const [visitLengths, setVisitLengths] = useState([
-    "30 minut",
-    "60 minut",
-    "90 minut",
+    30,
+    60,
+    90,
   ]);
   const [doctor, setDoctor] = useState("Jan Kowalski");
   const [doctorId, setDoctorId] = useState(0);
@@ -30,21 +29,33 @@ const PatientSearch = ({ patientId, spec }) => {
   const [visitDate, setVisitDate] = useState(new Date());
   const navigate = useNavigate();
   const addVisit = () => {
-    //strzal do API
-    console.log(
-      "ID DOKTORA:",
-      doctorId,
-      "ID PACJENTA:",
-      patientId,
-      "DURATION:",
-      visitLength,
-      "DATA:",
-      visitDate
-    );
-    navigate("/");
+    console.log(doctorId, patientId, moment(visitDate).format("YYYY-MM-DDTHH:mm"), visitLength)
+    const visitDto = {"id_doctor": doctorId,
+    "id_patient": patientId,
+    "beginDate": moment(visitDate).format("YYYY-MM-DDTHH:mm"),
+    "duration": visitLength}
+
+   // VisitService.createVisitWithParams(doctorId,patientId,visitLength,moment(visitDate).format("YYYY-MM-DDTHH:mm")).then(res =>{
+   //   console.log(res.data)
+   //   navigate("/");
+   // })
+
+    VisitService.createVisit(visitDto).then(res =>{
+     console.log(res.data)
+     navigate("/");
+   })
+
+    //navigate("/");
   };
   useEffect(() => {
-    //tutaj ustaw availableDoctors z API jako dostepnych doktorow
+    DoctorService.getDoctorsBySpec(spec).then(res =>{
+      const doctorList = [];
+      for (const doctorTmp in res.data)
+     // console.log(res.data[doctorTmp].firstName.trim() , res.data[doctorTmp].lastName.trim() , res.data[doctorTmp].id_person)
+          doctorList.push({doctorName:`${res.data[doctorTmp].firstName.trim()} ${res.data[doctorTmp].lastName.trim()}`,doctorId:res.data[doctorTmp].id_person})
+     setAvailableDoctors(doctorList); 
+
+    })
   }, []);
   return (
     <div

@@ -9,15 +9,27 @@ import {
   FormControl,
 } from "@mui/material";
 import { useEffect } from "react";
+import SpecializationService from "../services/SpecializationService"
 const PatientSearch = ({ patientId, spec, setSpec }) => {
   const navigate = useNavigate();
-  const [availableSpec, setAvailableSpec] = useState([
-    "Kardiolog",
-    "Jakis leszcz",
-  ]);
+  const [availableSpec, setAvailableSpec] = useState([]);
   const chooseSpec = () => {
     navigate("/visitInfo");
   };
+
+  useEffect(() => {
+    SpecializationService.getSpecializations().then((res) => {
+      console.log(res.data)
+      const specs = [];
+      for (const spec in res.data)
+        specs.push(res.data[spec].specName);
+
+      setAvailableSpec(specs); 
+
+  });
+
+  },[])
+
   return (
     <div
       style={{

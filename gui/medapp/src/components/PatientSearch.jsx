@@ -2,16 +2,25 @@ import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Button, TextField, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import PatientService from "../services/PatientService"
 const PatientSearch = ({ setId }) => {
+  const [idPatient, setIdPatient] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [alertVisible, setAlertVisible] = useState(false);
   const navigate = useNavigate();
   const searchPatient = () => {
-    setId(3); //DO ZMIANY
-    if (true) navigate(`/chooseSpec`);
+  PatientService.getPatientByName(name,surname).then((res) => {
+      console.log(name,surname)
+      setId(res.data.id_person)
+      if (res.data.id_person)
+     navigate(`/chooseSpec`);
     //patient not found
     else setAlertVisible(true);
+
+  });
+
+
   };
   return (
     <div
@@ -39,6 +48,7 @@ const PatientSearch = ({ setId }) => {
         onChange={(e) => setSurname(e.target.value)}
       />
       <Button
+        disabled={name.length === 0 || surname === 0 ? true : false }
         variant="contained"
         style={{ marginTop: "30px" }}
         onClick={() => searchPatient()}
