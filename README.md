@@ -1,1 +1,1 @@
-Przykładowy projekt Spirng API + React
+SPRING API + REACT example projec
